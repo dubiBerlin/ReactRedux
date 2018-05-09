@@ -19,17 +19,22 @@ class App extends React.Component {
       selectedVideo: null
     };
 
-    YTSearch({ key: secret, term: "react redux" }, videos => {
+    this.videoSearch("lomachenko linares");
+  }
+
+  videoSearch(term) {
+    YTSearch({ key: secret, term: term }, videos => {
       this.setState({
         videos: videos,
         selectedVideo: videos[0]
       });
     });
   }
+
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
         <VideoDetail video={this.state.selectedVideo} />
         <VideoList
           onVideoSelect={video =>
